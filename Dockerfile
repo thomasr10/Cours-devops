@@ -1,20 +1,7 @@
-# Utilisation d'une image de base Node.js
-FROM node:18
-
-# Création du répertoire de travail dans le conteneur
+FROM node:18-alpine
 WORKDIR /app
-
-# Copie des fichiers du projet dans le conteneur
 COPY package*.json ./
-
-# Installation des dépendances
-RUN npm install
-
-# Copie du reste des fichiers dans le conteneur
+RUN npm ci --only=production
 COPY . .
-
-# Exposition du port utilisé par l'application
-EXPOSE 6000
-
-# Commande pour démarrer l'application
-CMD ["npm", "start"]
+EXPOSE 5000
+CMD ["node", "src/index.js"]

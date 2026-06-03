@@ -4,7 +4,8 @@ const Task = require('../models/task');
 
 router.get('', async (req, res) => {
     const tasks = await Task.find();
-    res.json(tasks)
+    if(!tasks) return res.status(400);
+    return res.json(tasks)
 });
 
 router.post('', async (req, res) => {
@@ -14,9 +15,12 @@ router.post('', async (req, res) => {
         await Task.create({
             title,
             description
-        })
+        });
+
+        return res.status(201).json(task)
     } catch (e) {
         console.error(e);
+        res.status(400);
     }
 });
 
