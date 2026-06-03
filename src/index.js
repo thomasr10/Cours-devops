@@ -14,6 +14,7 @@ const PORT = process.env.PORT;
 // Middleware
 app.use(helmet());
 app.use(cors());
+app.use(express.json())
 
 const connectDb = async () => {
   try {
@@ -39,7 +40,7 @@ app.get('/', (req, res) => {
   res.json('Salut')
 })
 // Routes
-// app.use('/api/tasks', taskRoutes);
+app.use('/api/tasks', taskRoutes);
 // Error handling
-// app.use(errorHandler);
+app.use(errorHandler);
 module.exports = app;
